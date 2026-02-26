@@ -1,10 +1,8 @@
-import React from 'react'
-import FaceExpression from './features/expression/components/FaceExpression'
+import React from "react";
+import FaceExpression from "./features/expression/components/FaceExpression";
 
 const App = () => {
-  return (
-    <FaceExpression/>
-  )
-}
+  return <FaceExpression />;
+};
 
-export default App
+export default App;
