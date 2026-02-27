@@ -26,7 +26,7 @@ export default function FaceExpression() {
   return (
     <div className="feed">
       <h1>MoodSync AI</h1>
-      <video
+      < video
         ref={videoRef}
         style={{
           width: "400px",
@@ -34,10 +34,8 @@ export default function FaceExpression() {
           transform: "scaleX(-1)",
         }}
         playsInline
-      >
-
+      />
       <h2>{expression}</h2>
-      </video>
       <button className="btn"
         onClick={() => detect({ videoRef, setExpression, landmarkerRef })}
       >

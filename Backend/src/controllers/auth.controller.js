@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const userModel = require("../models/user.model");
-const brycpt = require("bcryptjs");
+const bcrypt = require("bcryptjs");
+const blackListModel = require("../models/blacklist.model");
 
 async function registerUser(req, res) {
   const { username, email, password } = req.body;
@@ -17,15 +18,19 @@ async function registerUser(req, res) {
 
   const hash = await bcrypt.hash(password, 10);
 
-  const user = userModel({
+  const user = await userModel.create({
     username,
     email,
     password: hash,
   });
 
-  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-    expiresIn: "3d",
-  });
+  const token = jwt.sign(
+    { id: user._id, username: user.username },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: "3d",
+    },
+  );
 
   res.cookie("token", token);
 
@@ -44,10 +49,10 @@ async function loginUser(req, res) {
 
   const user = await userModel.findOne({
     $or: [{ email }, { username }],
-  });
+  }).select("+password")
 
   if (!user) {
-    return res.status(400).jsom({
+    return res.status(401).json({
       message: "User doesn't exists",
     });
   }
@@ -63,6 +68,7 @@ async function loginUser(req, res) {
   const token = jwt.sign(
     {
       id: user._id,
+      username: user.username,
     },
     process.env.JWT_SECRET,
     { expiresIn: "3d" },
@@ -80,7 +86,32 @@ async function loginUser(req, res) {
   });
 }
 
+async function getMe(req, res) {
+  const user = await userModel.findById(req.user.id);
+
+  res.status(200).json({
+    message: "User details fecthed!",
+    user,
+  });
+}
+
+async function logoutUser(req, res){
+  const token = req.cookies.token;
+
+  res.clearCookie("token")
+
+  await blackListModel.create({
+    token
+  })
+
+  return res.status(200).json({
+    message:"Logout successfully!"
+  })
+}
+
 module.exports = {
   registerUser,
-  loginUser
+  loginUser,
+  getMe,
+  logoutUser,
 };
