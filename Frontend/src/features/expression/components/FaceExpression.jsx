@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { detect, init } from "../utils/utils";
+import "../styles/livefeed.css";
 
 export default function FaceExpression() {
   const videoRef = useRef(null);
@@ -23,7 +24,8 @@ export default function FaceExpression() {
   }, []);
 
   return (
-    <div style={{ textAlign: "center" }}>
+    <div className="feed">
+      <h1>MoodSync AI</h1>
       <video
         ref={videoRef}
         style={{
@@ -32,9 +34,11 @@ export default function FaceExpression() {
           transform: "scaleX(-1)",
         }}
         playsInline
-      />
+      >
+
       <h2>{expression}</h2>
-      <button
+      </video>
+      <button className="btn"
         onClick={() => detect({ videoRef, setExpression, landmarkerRef })}
       >
         Detect
