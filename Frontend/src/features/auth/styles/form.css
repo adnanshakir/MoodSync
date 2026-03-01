@@ -1,0 +1,87 @@
+.form-page-container {
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-card {
+  width: 100%;
+  max-width: 360px;
+  padding: 2rem;
+}
+
+.form-title {
+  font-family: var(--font-primary);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  letter-spacing: -0.025em;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.7rem;
+  font-family: var(--font-secondary);
+  color: var(--text-dim);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.form-input {
+  font-family: var(--font-secondary);
+  width: 100%;
+  padding: 12px;
+  background-color: var(--input-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  color: var(--text-main);
+  font-size: 0.9rem;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+}
+
+.form-input:focus {
+  border-color: var(--accent-emerald);
+}
+
+.form-button {
+  width: 100%;
+  font-family: var(--font-primary);
+  padding: 12px;
+  background-color: var(--accent-emerald);
+  color: #000000;
+  border: none;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: opacity 0.2s ease;
+}
+
+.form-button:hover {
+  opacity: 0.9;
+}
+
+.form-footer {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+.form-link {
+  color: var(--accent-emerald);
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 500;
+}
