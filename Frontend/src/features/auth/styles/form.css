@@ -79,9 +79,15 @@
   color: var(--text-dim);
 }
 
-.form-link {
-  color: var(--accent-emerald);
-  text-decoration: none;
-  cursor: pointer;
+.form-link{
+  /* This ensures the color stays emerald even if it's a link */
+  color: var(--accent-emerald) !important;
+  text-decoration: underline; /* You said you only want the underline */
   font-weight: 500;
+  transition: opacity 0.2s;
+  cursor: pointer;
+}
+
+.form-link:hover {
+  opacity: 0.8;
 }
