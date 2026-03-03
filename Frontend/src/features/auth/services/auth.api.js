@@ -5,16 +5,17 @@ const api = axios.create({
   withCredentials: true,
 });
 
-export async function userLogin(username, password) {
+export async function userLogin({ username, password, email }) {
   const response = await api.post("/login", {
     username,
+    email,
     password,
   });
 
   return response.data;
 }
 
-export async function userRegister(email, username, password) {
+export async function userRegister({ email, username, password }) {
   const response = await api.post("/register", {
     username,
     email,
@@ -25,7 +26,13 @@ export async function userRegister(email, username, password) {
 }
 
 export async function getMe() {
-    const response = await api.post("/get-me");
+  const response = await api.get("/get-me");
 
-    return response.data;
+  return response.data;
+}
+
+export async function userLogout() {
+  const response = await api.get("/logout");
+
+  return response.data;
 }
