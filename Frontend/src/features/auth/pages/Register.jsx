@@ -17,7 +17,7 @@ const Register = () => {
 
     try{
       await handleRegister({username, password, email});
-      navigate("/")
+      navigate("/mood-sync")
     }catch(err){
       console.error("Bad Request try again")
     }

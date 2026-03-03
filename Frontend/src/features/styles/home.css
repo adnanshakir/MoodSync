@@ -1,0 +1,198 @@
+.landing-wrapper {
+  background-color: var(--bg-primary);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.landing-container {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2.5rem 0;
+}
+
+.nav-logo {
+  font-family: var(--font-primary);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text-main);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-link-text {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-family: var(--font-secondary);
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+
+.nav-link-text:hover {
+  color: var(--text-main);
+}
+
+.nav-btn-sm {
+  border: 1px solid var(--accent-primary);
+  color: var(--accent-primary);
+  padding: 8px 18px;
+  border-radius: 100px;
+  text-decoration: none;
+  font-family: var(--font-primary);
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.nav-btn-sm:hover {
+  background: var(--accent-primary);
+  color: #ffffff;
+}
+
+.hero-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 3rem;
+  padding: 2rem 0 6rem 0;
+}
+
+.hero-title {
+  font-family: var(--font-primary);
+  font-size: clamp(2.8rem, 9vw, 4.2rem);
+  font-weight: 700;
+  line-height: 1.05;
+  margin-bottom: 1.2rem;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.hero-description {
+  font-family: var(--font-secondary);
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0 auto 2.5rem auto;
+  max-width: 440px;
+  text-wrap: balance;
+}
+
+.btn-primary {
+  background: var(--accent-primary);
+  color: #ffffff !important;
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  display: inline-block;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+  padding: 16px 36px;
+  border-radius: 100px;
+  border: 1px solid var(--accent-primary);
+}
+
+.btn-primary:hover {
+  opacity: 0.8;
+}
+
+.hero-note {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  margin-top: 1rem;
+  display: block;
+}
+
+.hero-visual {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.music-card-simple {
+  width: 100%;
+  max-width: 300px;
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  border-radius: 24px;
+  padding: 1.25rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+.card-image {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 16px;
+  margin-bottom: 1.25rem;
+}
+
+.card-song-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 0.25rem;
+}
+
+.card-song-title {
+  font-family: var(--font-primary);
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--accent-primary);
+}
+
+.card-artist-name {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  font-family: var(--font-secondary);
+}
+
+/* --- Responsive Adjustments --- */
+@media (min-width: 1200px) {
+  .landing-container {
+    width: 60%;
+  }
+
+  .hero-section {
+    flex-direction: row;
+    text-align: left;
+    gap: 5rem;
+    padding-top: 4rem;
+  }
+
+  .hero-title {
+    font-size: 4.8rem;
+  }
+
+  .hero-description {
+    margin: 0 0 3rem 0;
+    font-size: 1rem;
+  }
+
+  .hero-visual {
+    justify-content: flex-end;
+  }
+
+  .hero-actions {
+    text-align: left;
+  }
+}

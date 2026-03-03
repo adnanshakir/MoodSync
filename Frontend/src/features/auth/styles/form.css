@@ -1,6 +1,5 @@
 .form-page-container {
   background-color: var(--bg-primary);
-  color: var(--text-main);
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -9,16 +8,21 @@
 
 .form-card {
   width: 100%;
-  max-width: 360px;
-  padding: 2rem;
+  max-width: 380px;
+  padding: 2.5rem;
+  background-color: var(--bg-secondary);
+  border-radius: 16px;
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
 
 .form-title {
   font-family: var(--font-primary);
   font-size: 1.5rem;
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 2rem;
   letter-spacing: -0.025em;
+  color: var(--text-main);
 }
 
 .form-group {
@@ -27,45 +31,48 @@
 
 .form-label {
   display: block;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-family: var(--font-secondary);
   color: var(--text-dim);
   margin-bottom: 0.5rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  font-weight: 500;
 }
 
 .form-input {
   font-family: var(--font-secondary);
   width: 100%;
   padding: 12px;
-  background-color: var(--input-bg);
   border: 1px solid var(--border-subtle);
-  border-radius: 6px;
+  border-radius: 8px;
   color: var(--text-main);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   outline: none;
   box-sizing: border-box;
   transition: border-color 0.2s ease;
+  background-color: var(--bg-primary);
 }
 
 .form-input:focus {
-  border-color: var(--accent-emerald);
+  border-color: var(--accent-primary);
 }
 
 .form-button {
   width: 100%;
   font-family: var(--font-primary);
-  padding: 12px;
-  background-color: var(--accent-emerald);
-  color: #000000;
+  padding: 14px;
+  background-color: var(--accent-primary);
+  color: #ffffff;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 1rem;
   cursor: pointer;
   margin-top: 1rem;
-  transition: opacity 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
 }
 
 .form-button:hover {
@@ -79,15 +86,10 @@
   color: var(--text-dim);
 }
 
-.form-link{
-  /* This ensures the color stays emerald even if it's a link */
-  color: var(--accent-emerald) !important;
-  text-decoration: underline; /* You said you only want the underline */
-  font-weight: 500;
+.form-link {
+  color: var(--accent-primary) !important;
+  text-decoration: underline;
+  font-weight: 600;
   transition: opacity 0.2s;
   cursor: pointer;
-}
-
-.form-link:hover {
-  opacity: 0.8;
 }

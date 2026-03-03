@@ -4,92 +4,111 @@
   background:
     radial-gradient(
       circle at 0% 0%,
-      rgba(16, 185, 129, 0.05) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at 100% 100%,
-      rgba(16, 185, 129, 0.03) 0%,
-      transparent 50%
+      rgba(37, 99, 235, 0.03) 0%,
+      transparent 40%
     ),
     var(--bg-primary);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
+  gap: 2.5rem;
   color: var(--text-main);
+  transition: background 0.3s ease;
 }
 
 .feed video {
   border: 1px solid var(--border-subtle);
-  background: var(--input-bg);
+  background: var(
+    --bg-secondary
+  );
+  border-radius: 16px;
   box-shadow:
-    0 20px 40px rgba(0, 0, 0, 0.5),
-    0 0 0 1px rgba(255, 255, 255, 0.05);
-  transition: all 0.4s ease;
+    0 20px 50px rgba(15, 23, 42, 0.08),
+    0 0 0 1px rgba(15, 23, 42, 0.02);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .feed video:hover {
-  border-color: var(--accent-emerald);
-  box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+  border-color: var(--accent-primary);
+  box-shadow: 0 10px 30px rgba(37, 99, 235, 0.15);
 }
 
+
+/* Page Title */
 .feed h1 {
+  margin-bottom: 0.5rem;
   font-family: var(--font-primary);
-  font-size: 1.5rem;
-  letter-spacing: -0.02em;
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
   color: var(--text-main);
 }
 
 .feed h2 {
   font-family: var(--font-secondary);
   font-size: 0.9rem;
-  color: var(--accent-emerald);
-  padding: 8px 20px;
+  font-weight: 600;
+  color: var(--accent-primary);
+  padding: 10px 24px;
   border-radius: 100px;
-  background: rgba(16, 185, 129, 0.08);
-  border: 1px solid rgba(16, 185, 129, 0.2);
+  background: rgba(37, 99, 235, 0.06);
+  border: 1px solid rgba(37, 99, 235, 0.15);
   backdrop-filter: blur(8px);
-  min-width: 120px;
+  min-width: 140px;
   text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
-/* Button */
+/* Detect Button */
 .btn {
-  background: var(--accent-emerald);
-  color: #000;
+  /* Layout & Typography */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 28px;
+
+  /* Styling: Hollow Pill Shape */
+  background: transparent;
+  color: var(--accent-primary);
+  border: 1.5px solid var(--accent-primary);
+  border-radius: 100px;
+
+  /* Fonts */
   font-family: var(--font-primary);
-  letter-spacing: 0.03em;
-  padding: 12px 32px;
-  border-radius: 6px;
   font-size: 0.9rem;
   font-weight: 600;
-  border: none;
+  letter-spacing: 0.03em;
+
+  /* Interaction */
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.25s ease;
+  user-select: none;
 }
 
 .btn:hover {
-  transform: translateY(-2px);
-  opacity: 0.9;
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  background-color: var(--accent-primary);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
 }
 
 .btn:active {
-  transform: translateY(0px);
+  opacity: 0.8;
 }
 
+/* Detection State Animation */
 .detecting-active video {
-  animation: pulse-border 2s infinite ease-in-out;
+  animation: pulse-border-blue 2s infinite ease-in-out;
 }
 
-@keyframes pulse-border {
+@keyframes pulse-border-blue {
   0% {
     border-color: var(--border-subtle);
   }
   50% {
-    border-color: var(--accent-emerald);
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 20px rgba(37, 99, 235, 0.1);
   }
   100% {
     border-color: var(--border-subtle);
