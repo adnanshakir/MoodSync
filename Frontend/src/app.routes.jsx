@@ -3,6 +3,7 @@ import Login from "./features/auth/pages/Login";
 import Register from "./features/auth/pages/Register";
 import FaceExpression from "./features/expression/components/FaceExpression";
 import Home from "./features/pages/Home";
+import Protected from "./features/auth/components/Protected";
 
 export const router = createBrowserRouter([
   {
@@ -14,11 +15,15 @@ export const router = createBrowserRouter([
     element: <Register />,
   },
   {
-    path:"/mood-sync",
-    element: <FaceExpression/>,
+    path: "/mood-sync",
+    element: (
+      <Protected>
+        <FaceExpression />
+      </Protected>
+    ),
   },
   {
-    path:"/",
-    element: <Home/>,
-  }
+    path: "/",
+    element: <Home />,
+  },
 ]);

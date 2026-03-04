@@ -21,12 +21,12 @@ const Home = () => {
         <main className="hero-section">
           <div className="hero-content">
             <h1 className="hero-title">
-              A mood tracker you'll{" "}
-              <span className="text-accent">actually</span> use
+              AI-Powered <span className="text-accent">Expression</span>{" "}
+              Analysis
             </h1>
             <p className="hero-description">
-              A simple and beautiful expression analysis app designed to help
-              you understand your emotional rhythm.
+              An experimental AI playground for real-time facial expression
+              analysis.
             </p>
             <div className="hero-actions">
               <Link to="/mood-sync" className="btn-primary">
@@ -45,7 +45,7 @@ const Home = () => {
               />
               <div className="card-song-info">
                 <span className="card-song-title">Emerald Waves</span>
-                <span className="card-artist-name">MoodSync AI • Calming</span>
+                <span className="card-artist-name">MoodSync AI</span>
               </div>
             </div>
           </div>

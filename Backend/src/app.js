@@ -12,6 +12,9 @@ app.use(cors({ credentials: true, origin: ["http://localhost:5173", "http://127.
 
 // Routes
 const authRouter = require("./routes/auth.route");
+const songRouter = require('./routes/song.route')
+
 app.use("/api/auth", authRouter);
+app.use("/api/songs", songRouter)
 
 module.exports = app;

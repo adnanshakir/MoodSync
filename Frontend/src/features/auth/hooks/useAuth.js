@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../auth.context";
 import {
   getMe,
@@ -38,6 +38,10 @@ export const useAuth = () => {
     setUser(null);
     setLoading(false);
   };
+
+  useEffect(() => {
+    hanldeGetMe();
+  }, []);
 
   return {
     user,
