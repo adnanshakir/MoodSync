@@ -1,9 +1,9 @@
 import { createBrowserRouter } from "react-router";
 import Login from "./features/auth/pages/Login";
 import Register from "./features/auth/pages/Register";
-import FaceExpression from "./features/expression/components/FaceExpression";
-import Home from "./features/pages/Home";
+import Landing from "./features/pages/Landing";
 import Protected from "./features/auth/components/Protected";
+import Home from "./features/home/pages/Home";
 
 export const router = createBrowserRouter([
   {
@@ -18,12 +18,12 @@ export const router = createBrowserRouter([
     path: "/mood-sync",
     element: (
       <Protected>
-        <FaceExpression />
+        <Home/>
       </Protected>
     ),
   },
   {
     path: "/",
-    element: <Home />,
+    element: <Landing/>,
   },
 ]);

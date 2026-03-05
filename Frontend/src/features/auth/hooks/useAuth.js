@@ -25,11 +25,20 @@ export const useAuth = () => {
     setLoading(false);
   };
 
-  const hanldeGetMe = async () => {
-    setLoading(true);
-    const response = await getMe();
-    setUser(response.user);
-    setLoading(false);
+  const handleGetMe = async () => {
+    try {
+      setLoading(true);
+      const response = await getMe();
+      setUser(response.user);
+    } catch (err) {
+      if (err.response?.status === 401) {
+        setUser(null);
+      } else {
+        console.error(err);
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleLogout = async () => {
@@ -40,7 +49,7 @@ export const useAuth = () => {
   };
 
   useEffect(() => {
-    hanldeGetMe();
+    handleGetMe();
   }, []);
 
   return {
@@ -49,5 +58,6 @@ export const useAuth = () => {
     handleLogin,
     handleRegister,
     handleLogout,
+    handleGetMe,
   };
 };

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/home.css";
 
-const Home = () => {
+const Landing = () => {
   return (
     <div className="landing-wrapper">
       <div className="landing-container">
@@ -29,8 +29,8 @@ const Home = () => {
               analysis.
             </p>
             <div className="hero-actions">
-              <Link to="/mood-sync" className="btn-primary">
-                Try Demo
+              <Link to="/login" className="btn-primary">
+                Try it now!
               </Link>
               <span className="hero-note">No login required</span>
             </div>
@@ -55,4 +55,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Landing;

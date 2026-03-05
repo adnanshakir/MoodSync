@@ -15,7 +15,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      await handleLogin(username, password);
+      await handleLogin({username, password});
       navigate("/mood-sync");
     } catch (err) {
       console.error("Login failed");
