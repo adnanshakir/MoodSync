@@ -1,0 +1,190 @@
+.app-grid {
+  display: grid;
+  grid-template-columns: minmax(250px, 300px) 1fr 340px;
+  grid-template-rows: 1fr auto;
+  gap: 24px;
+  padding: 24px;
+  height: 100vh;
+  max-width: 1600px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* --- Left Column: Intro --- */
+.intro-sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+  color: var(--text-dim);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* --- Center Column: Camera & Stage --- */
+.center-stage {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  overflow: hidden;
+}
+
+.camera-container {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: 24px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* --- Right Column: Playlist Panel --- */
+.playlist-panel {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: 24px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+.panel-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-transform: capitalize;
+}
+
+.song-scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  margin-top: 15px;
+  padding-right: 8px;
+}
+
+/* --- Playlist Items --- */
+.playlist-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.playlist-card:hover {
+  background: rgba(37, 99, 235, 0.05);
+}
+
+.playlist-card.active {
+  background: rgba(37, 99, 235, 0.1);
+  border-left: 4px solid var(--accent-primary);
+}
+
+.mini-art {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.mini-details {
+  overflow: hidden;
+}
+
+.mini-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mini-artist {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+
+/* --- Action Buttons --- */
+.upload-dashed-btn {
+  margin-top: 15px;
+  width: 100%;
+  padding: 12px;
+  border: 2px dashed var(--border-subtle);
+  background: transparent;
+  color: var(--text-dim);
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.upload-dashed-btn:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  background: rgba(37, 99, 235, 0.02);
+}
+
+/* --- Responsive Adaptations --- */
+@media (max-width: 1200px) {
+  .app-grid {
+    grid-template-columns: 1fr 320px;
+  }
+  .intro-sidebar {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-grid {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 10px;
+    gap: 15px;
+    overflow: hidden;
+  }
+
+  .center-stage {
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .camera-container {
+    height: auto;
+    min-height: 280px;
+    border: none;
+    background: transparent;
+  }
+
+  .playlist-panel {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .song-scroll-area {
+    flex: 1;
+    overflow-y: auto;
+  }
+}

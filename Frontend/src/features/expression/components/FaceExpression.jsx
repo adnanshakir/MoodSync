@@ -24,7 +24,11 @@ export default function FaceExpression({ onClick = () => {} }) {
   }, []);
 
   async function handleClick() {
-    const detectedExpression = await detect({ videoRef, setExpression, landmarkerRef });
+    const detectedExpression = await detect({
+      videoRef,
+      setExpression,
+      landmarkerRef,
+    });
     if (detectedExpression) {
       onClick(detectedExpression);
     }
@@ -32,19 +36,22 @@ export default function FaceExpression({ onClick = () => {} }) {
 
   return (
     <div className="feed">
-      <h1>MoodSync AI</h1>
-      <video
-        ref={videoRef}
-        style={{
-          width: "400px",
-          borderRadius: "12px",
-          transform: "scaleX(-1)",
-        }}
-        playsInline
-      />
-      <h2>{expression}</h2>
-      <button className="btn" onClick={handleClick}>
-        Detect
+      <h1 className="mobile-title">MoodSync AI</h1>
+      <div className="video-wrapper">
+        <video
+          ref={videoRef}
+          style={{
+            width: "400px",
+            borderRadius: "12px",
+            transform: "scaleX(-1)",
+          }}
+          playsInline
+        />
+        <h2 className="expression-badge">{expression}</h2>
+      </div>
+
+      <button className="btn detect-btn" onClick={handleClick}>
+        Detect Mood
       </button>
     </div>
   );
