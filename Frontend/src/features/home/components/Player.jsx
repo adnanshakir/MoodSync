@@ -1,9 +1,9 @@
-import React, { useContext, useRef, useState, useEffect } from "react";
-import { SongContext } from "../song.context";
+import React, { useRef, useState, useEffect } from "react";
+import { useSong } from "../hooks/useSong";
 import "../styles/player.css";
 
 const Player = () => {
-  const { song } = useContext(SongContext);
+   const { song } = useSong()
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -13,9 +13,12 @@ const Player = () => {
   useEffect(() => {
     if (song && audioRef.current) {
       audioRef.current.src = song.url;
-      if (isPlaying) {
-        audioRef.current.play().catch((e) => console.error("Playback error:", e));
-      }
+      setCurrentTime(0);
+      setIsPlaying(true);
+      audioRef.current.play().catch((e) => {
+        console.error("Playback error:", e);
+        setIsPlaying(false);
+      });
     }
   }, [song]);
 
@@ -50,10 +53,12 @@ const Player = () => {
     if (isNaN(time)) return "0:00";
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
-    return `${minutes}:${seconds < 10 ? "0" : ""}`;
+    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
 
   if (!song) return null;
+  console.log(song);
+  
 
   return (
     <div className="player-container">

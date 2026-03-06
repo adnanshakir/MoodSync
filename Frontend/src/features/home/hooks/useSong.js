@@ -6,16 +6,16 @@ export const useSong = () => {
   const context = useContext(SongContext);
   const { song, setSong, loading, setLoading } = context;
 
-  async function fetchSong({ mood }) {
+  async function fetchSong(mood) {
     setLoading(true);
-    const response = await getSong({ mood });
+    const response = await getSong(mood);
     setSong(response.song);
     setLoading(false);
   }
 
-  return({
+  return {
     loading,
     song,
     fetchSong,
-  })
+  };
 };
