@@ -29,7 +29,7 @@ const Landing = () => {
               analysis.
             </p>
             <div className="hero-actions">
-              <Link to="/login" className="btn-primary">
+              <Link to="/mood-sync" className="btn-primary">
                 Try it now!
               </Link>
               <span className="hero-note">No login required</span>

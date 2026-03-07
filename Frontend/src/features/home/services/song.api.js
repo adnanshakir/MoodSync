@@ -12,3 +12,9 @@ export const getSong = async (mood) => {
 
   return response.data;
 };
+
+export const uploadSong = async (formData) => {
+  const reponse = await api.post("/", formData);
+
+  return reponse.data;
+}

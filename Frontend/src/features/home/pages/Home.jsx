@@ -5,21 +5,49 @@ import { useSong } from "../hooks/useSong";
 import "../styles/home.css";
 
 const Home = () => {
-  const { fetchSong, playlist, setSong, song, loading } = useSong();
-  console.log("Current Playlist:", playlist);
+  const { fetchSong, playlist, setSong, song, loading, handleUploadSong } =
+    useSong();
+
+  const getTooltipText = () => {
+    if (!playlist.length)
+      return "Please detect your emotion first to enable uploads.";
+    return "Max file size: 10MB";
+  };
+
+  const handleUploadClick = (e) => {
+    if (!playlist.length) {
+      alert(
+        "Please click the 'Detect' button to find your mood before uploading!",
+      );
+      e.preventDefault();
+    }
+  };
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const MAX_FILE_SIZE = 10 * 1024 * 1024;
+
+    if (file.size > MAX_FILE_SIZE) {
+      alert("File is too large! Please upload a song 10MB or less.");
+      e.target.value = null;
+      return;
+    }
+
+    const currentMood = song?.mood || "Unknown";
+
+    const formData = new FormData();
+    formData.append("song", file);
+    formData.append("mood", currentMood);
+
+    handleUploadSong(formData);
+
+    e.target.value = null;
+  };
 
   return (
     <div className="app-grid">
-      {/* Left Column */}
-      <aside className="intro-sidebar">
-        <h1 className="hero-title">
-          Your Emotional <span className="text-accent">Sync.</span>
-        </h1>
-        <p className="hero-subtitle">
-          Experience music like never before. Detect your emotions and find the
-          perfect soundtrack.
-        </p>
-      </aside>
       <main className="center-stage">
         <div className="camera-container">
           <FaceExpression
@@ -28,6 +56,7 @@ const Home = () => {
         </div>
         <Player />
       </main>
+
       {/* Right Column: Playlist */}
       <aside className="playlist-panel">
         <h3 className="panel-title">
@@ -56,9 +85,24 @@ const Home = () => {
             <p className="status-text">Scan your face to see songs</p>
           )}
         </div>
-        <button className="upload-dashed-btn">
-          <span>+</span> Upload a song
-        </button>
+        <div
+          className="upload-wrapper"
+          title={getTooltipText()}
+          onClick={handleUploadClick}
+        >
+          <label
+            className={`upload-dashed-btn ${!playlist.length ? "disabled" : ""}`}
+          >
+            <input
+              type="file"
+              hidden
+              accept="audio/*"
+              disabled={!playlist.length}
+              onChange={handleFileUpload}
+            />
+            <span>+ Upload a song</span>
+          </label>
+        </div>
       </aside>
     </div>
   );

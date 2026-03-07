@@ -1,7 +1,7 @@
 .app-grid {
   display: grid;
-  grid-template-columns: minmax(250px, 300px) 1fr 340px;
-  grid-template-rows: 1fr auto;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr;
   gap: 24px;
   padding: 24px;
   height: 100vh;
@@ -15,7 +15,6 @@
 .intro-sidebar {
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
 
 .hero-title {
@@ -121,7 +120,15 @@
 }
 
 /* --- Action Buttons --- */
+.hidden-input {
+  display: none;
+}
+
+/* Ensure the label looks and acts like a button */
 .upload-dashed-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-top: 15px;
   width: 100%;
   padding: 12px;
@@ -139,17 +146,23 @@
   color: var(--accent-primary);
   background: rgba(37, 99, 235, 0.02);
 }
-
-/* --- Responsive Adaptations --- */
-@media (max-width: 1200px) {
-  .app-grid {
-    grid-template-columns: 1fr 320px;
-  }
-  .intro-sidebar {
-    display: none;
-  }
+.upload-wrapper {
+  width: 100%;
+  cursor: help;
 }
 
+.upload-dashed-btn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: var(--bg-tertiary);
+  border-style: solid;
+}
+
+.upload-dashed-btn.disabled span {
+  pointer-events: none;
+}
+
+/* --- Responsive Adaptations --- */
 @media (max-width: 768px) {
   .app-grid {
     display: flex;

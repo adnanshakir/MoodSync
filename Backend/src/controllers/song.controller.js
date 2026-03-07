@@ -3,37 +3,38 @@ const storageService = require("../services/storage.service");
 const id3 = require("node-id3");
 
 async function uploadSong(req, res) {
-  const songBuffer = req.file.buffer;
-  const { mood } = req.body;
-  const tags = id3.read(songBuffer);
+  try {
+    if (!req.file) return res.status(400).json({ message: "No file uploaded" });
 
-  //  Optimized instead of uploading file separately, Now we are uploading them simultaneously
+    const songBuffer = req.file.buffer;
+    const { mood } = req.body;
+    const tags = id3.read(songBuffer);
 
-  const [songFile, albumArt] = await Promise.all([
-    storageService.uploadFile({
-      buffer: songBuffer,
-      filename: tags.title + ".mp3",
-      folder: "/mood-sync/songs",
-    }),
+    const [songFile, albumArt] = await Promise.all([
+      storageService.uploadFile({
+        buffer: songBuffer,
+        filename: `${tags.title || 'unknown'}-${Date.now()}.mp3`,
+        folder: "/mood-sync/songs",
+      }),
+      storageService.uploadFile({
+        buffer: tags.image.imageBuffer,
+        filename: `${tags.title || 'unknown'}-${Date.now()}.jpeg`,
+        folder: "/mood-sync/albumArt",
+      }),
+    ]);
 
-    storageService.uploadFile({
-      buffer: tags.image.imageBuffer,
-      filename: tags.title + ".jpeg",
-      folder: "/mood-sync/albumArt",
-    }),
-  ]);
+    const newSong = await songModel.create({
+      title: tags.title || "Untitled",
+      artist: tags.artist || "Unknown Artist",
+      url: songFile.url,
+      albumArtUrl: albumArt.url,
+      mood,
+    });
 
-  const song = await songModel.create({
-    title: tags.title,
-    url: songFile.url,
-    albumArtUrl: albumArt.url,
-    mood,
-  });
-
-  res.status(201).json({
-    message: "Song added succesfully",
-    song,
-  });
+    res.status(201).json({ message: "Song added successfully", song: newSong });
+  } catch (error) {
+    res.status(500).json({ message: "Server error during upload", error: error.message });
+  }
 }
 
 async function getSong(req, res) {

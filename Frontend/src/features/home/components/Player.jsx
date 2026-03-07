@@ -9,6 +9,7 @@ const Player = () => {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(1);
+  
 
   useEffect(() => {
     if (song && audioRef.current) {
@@ -58,7 +59,7 @@ const Player = () => {
 
   if (!song) return null;
   console.log(song);
-  
+
 
   return (
     <div className="player-container">

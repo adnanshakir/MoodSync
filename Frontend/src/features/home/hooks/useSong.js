@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { getSong } from "../services/song.api";
+import { getSong, uploadSong } from "../services/song.api";
 import { SongContext } from "../song.context";
 
 export const useSong = () => {
@@ -7,10 +7,8 @@ export const useSong = () => {
   const { song, setSong, loading, setLoading, playlist, setPlaylist } = context;
 
   async function fetchSong(moodObj) {
-    // moodObj is { mood: 'happy' }
     setLoading(true);
     try {
-      // Extract the string value: moodObj.mood
       const response = await getSong(moodObj.mood);
 
       if (response.songs && response.songs.length > 0) {
@@ -24,5 +22,18 @@ export const useSong = () => {
     }
   }
 
-  return { loading, song, playlist, fetchSong, setSong };
+  async function handleUploadSong(formData) {
+    setLoading(true);
+
+    try {
+      const response = await uploadSong(formData);
+      setPlaylist((prev) => [...prev, response.song]);
+    } catch (err) {
+      console.error("Upload error:", err);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return { loading, song, playlist, fetchSong, setSong, handleUploadSong };
 };
