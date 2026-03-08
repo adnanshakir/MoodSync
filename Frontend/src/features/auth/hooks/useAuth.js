@@ -12,34 +12,46 @@ export const useAuth = () => {
   const { user, setUser, loading, setLoading } = context;
 
   const handleLogin = async ({ username, password, email }) => {
-    setLoading(true);
-    const response = await userLogin({ username, password, email });
-    setUser(response.user);
-    setLoading(false);
-  };
-
-  const handleRegister = async ({ email, username, password }) => {
-    setLoading(true);
-    const response = await userRegister({ username, email, password });
-    setUser(response.user);
-    setLoading(false);
-  };
-
-  const handleGetMe = async () => {
     try {
       setLoading(true);
-      const response = await getMe();
+      const response = await userLogin({ username, password, email });
       setUser(response.user);
-    } catch (err) {
-      if (err.response?.status === 401) {
-        setUser(null);
-      } else {
-        console.error(err);
-      }
     } finally {
       setLoading(false);
     }
   };
+
+  const handleRegister = async ({ email, username, password }) => {
+    try {
+      setLoading(true);
+      const response = await userRegister({ username, email, password });
+      setUser(response.user);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+const handleGetMe = async () => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    setLoading(false);
+    return;
+  }
+
+  try {
+    setLoading(true);
+    const response = await getMe();
+    setUser(response.user);
+  } catch (err) {
+    if (err.response?.status === 401) {
+      setUser(null);
+    } else {
+      console.error(err);
+    }
+  } finally {
+    setLoading(false);
+  }
+};
 
   const handleLogout = async () => {
     setLoading(true);

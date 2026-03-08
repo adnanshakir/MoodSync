@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../styles/hero.css";
+import "../styles/landing.css";
 
 const Landing = () => {
   return (
@@ -32,7 +32,6 @@ const Landing = () => {
               <Link to="/mood-sync" className="btn-primary">
                 Try it now!
               </Link>
-              <span className="hero-note">No login required</span>
             </div>
           </div>
 

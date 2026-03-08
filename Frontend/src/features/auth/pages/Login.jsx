@@ -39,7 +39,7 @@ const Login = () => {
               type="username"
               required
               className="form-input"
-              placeholder="Email"
+              placeholder="Username"
             />
           </div>
           <div className="form-group">
@@ -50,7 +50,7 @@ const Login = () => {
               type="password"
               required
               className="form-input"
-              placeholder="••••••••"
+              placeholder="Password"
             />
           </div>
           <button type="submit" className="form-button">

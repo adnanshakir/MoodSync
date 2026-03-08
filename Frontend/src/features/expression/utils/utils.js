@@ -1,8 +1,10 @@
 import { FaceLandmarker, FilesetResolver } from "@mediapipe/tasks-vision";
 
+let lastExpression = "Neutral";
+
 export const init = async ({ videoRef, landmarkerRef, streamRef }) => {
   const vision = await FilesetResolver.forVisionTasks(
-    "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm",
+    "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm"
   );
 
   landmarkerRef.current = await FaceLandmarker.createFromOptions(vision, {
@@ -19,6 +21,9 @@ export const init = async ({ videoRef, landmarkerRef, streamRef }) => {
     video: true,
   });
 
+  // FIX: check ref before using it
+  if (!videoRef.current) return;
+
   videoRef.current.srcObject = streamRef.current;
 
   videoRef.current.onloadedmetadata = () => {
@@ -31,7 +36,7 @@ export const detect = ({ videoRef, landmarkerRef, setExpression }) => {
 
   const results = landmarkerRef.current.detectForVideo(
     videoRef.current,
-    performance.now(),
+    performance.now()
   );
 
   if (results.faceBlendshapes?.length > 0) {
@@ -57,10 +62,12 @@ export const detect = ({ videoRef, landmarkerRef, setExpression }) => {
       currentExpression = "sad";
     }
 
-    setExpression(currentExpression);
+    // FIX: update state only when expression changes
+    if (currentExpression !== lastExpression) {
+      lastExpression = currentExpression;
+      setExpression(currentExpression);
+    }
+
     return currentExpression;
   }
-
-  // animationRef.current = requestAnimationFrame(detect);
-  // Detects face continously
 };

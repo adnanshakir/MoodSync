@@ -1,6 +1,5 @@
-import React from "react";
 import { useAuth } from "../hooks/useAuth";
-import { Navigate} from "react-router";
+import { Navigate } from "react-router";
 
 const Protected = ({ children }) => {
   const { user, loading } = useAuth();
@@ -9,10 +8,15 @@ const Protected = ({ children }) => {
     return <h1>Loading...</h1>;
   }
 
-  if (!user ) {
+  if (!user) {
     return <Navigate to="/login" />;
   }
 
+  const token = localStorage.getItem("token");
+  if (!token) {
+    return <Navigate to="/" />;
+  }
+  
   return children;
 };
 

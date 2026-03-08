@@ -35,6 +35,26 @@ body,
 .text-accent {
   color: var(--accent-primary);
 }
+
+.btn-primary {
+  background: var(--accent-primary);
+  color: #ffffff !important;
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  display: inline-block;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  padding: 16px 36px;
+  border-radius: 100px;
+  border: 1px solid var(--accent-primary);
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  opacity: 0.8;
+}
 .bg-accent {
   background-color: var(--accent-primary);
 }

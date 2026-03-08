@@ -1,12 +1,16 @@
 import React from "react";
+import { useNavigate } from "react-router";
 import FaceExpression from "../../expression/components/FaceExpression";
 import Player from "../components/Player";
 import { useSong } from "../hooks/useSong";
+import { useAuth } from "../../auth/hooks/useAuth";
 import "../styles/home.css";
 
 const Home = () => {
   const { fetchSong, playlist, setSong, song, loading, handleUploadSong } =
     useSong();
+  const { handleLogout } = useAuth();
+
 
   const getTooltipText = () => {
     if (!playlist.length)
@@ -46,8 +50,17 @@ const Home = () => {
     e.target.value = null;
   };
 
+  const handleLogoutUser = async () => {
+    localStorage.removeItem("token");
+    await handleLogout();
+  };
+
   return (
     <div className="app-grid">
+      <nav className="home-nav">
+        <h1 className="mobile-title">MoodSync AI</h1>
+        <button className="btn-primary" onClick={handleLogoutUser}>Logout</button>
+      </nav>
       <main className="center-stage">
         <div className="camera-container">
           <FaceExpression

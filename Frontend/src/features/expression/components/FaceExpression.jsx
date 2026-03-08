@@ -36,7 +36,6 @@ export default function FaceExpression({ onClick = () => {} }) {
 
   return (
     <div className="feed">
-      <h1 className="mobile-title">MoodSync AI</h1>
       <div className="video-wrapper">
         <video
           ref={videoRef}
