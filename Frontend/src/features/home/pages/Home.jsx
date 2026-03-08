@@ -51,7 +51,6 @@ const Home = () => {
   };
 
   const handleLogoutUser = async () => {
-    localStorage.removeItem("token");
     await handleLogout();
   };
 

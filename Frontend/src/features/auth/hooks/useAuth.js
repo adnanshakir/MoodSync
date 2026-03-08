@@ -1,7 +1,7 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../auth.context";
+import { useNavigate } from "react-router";
 import {
-  getMe,
   userLogin,
   userLogout,
   userRegister,
@@ -10,11 +10,13 @@ import {
 export const useAuth = () => {
   const context = useContext(AuthContext);
   const { user, setUser, loading, setLoading } = context;
+  const navigate = useNavigate();
 
   const handleLogin = async ({ username, password, email }) => {
     try {
       setLoading(true);
       const response = await userLogin({ username, password, email });
+      localStorage.setItem("token", "true");
       setUser(response.user);
     } finally {
       setLoading(false);
@@ -25,44 +27,21 @@ export const useAuth = () => {
     try {
       setLoading(true);
       const response = await userRegister({ username, email, password });
+      localStorage.setItem("token", "true");
       setUser(response.user);
     } finally {
       setLoading(false);
     }
   };
 
-const handleGetMe = async () => {
-  const token = localStorage.getItem("token");
-  if (!token) {
-    setLoading(false);
-    return;
-  }
-
-  try {
-    setLoading(true);
-    const response = await getMe();
-    setUser(response.user);
-  } catch (err) {
-    if (err.response?.status === 401) {
-      setUser(null);
-    } else {
-      console.error(err);
-    }
-  } finally {
-    setLoading(false);
-  }
-};
-
   const handleLogout = async () => {
     setLoading(true);
-    const response = await userLogout();
+    await userLogout();
+    localStorage.removeItem("token");
     setUser(null);
     setLoading(false);
+    navigate("/");
   };
-
-  useEffect(() => {
-    handleGetMe();
-  }, []);
 
   return {
     user,
@@ -70,6 +49,5 @@ const handleGetMe = async () => {
     handleLogin,
     handleRegister,
     handleLogout,
-    handleGetMe,
   };
 };

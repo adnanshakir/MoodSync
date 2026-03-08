@@ -1,15 +1,14 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import { useSong } from "../hooks/useSong";
 import "../styles/player.css";
 
 const Player = () => {
-   const { song } = useSong()
+  const { song } = useSong();
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(1);
-  
 
   useEffect(() => {
     if (song && audioRef.current) {
@@ -23,7 +22,7 @@ const Player = () => {
     }
   }, [song]);
 
-  const togglePlay = () => {
+  const togglePlay = useCallback(() => {
     if (audioRef.current.paused) {
       audioRef.current.play();
       setIsPlaying(true);
@@ -31,24 +30,27 @@ const Player = () => {
       audioRef.current.pause();
       setIsPlaying(false);
     }
-  };
+  }, []);
 
-  const handleTimeUpdate = () => {
-    setCurrentTime(audioRef.current.currentTime);
+  const handleTimeUpdate = useCallback(() => {
+    setCurrentTime(Math.floor(audioRef.current.currentTime));
+  }, []);
+
+  const handleLoadedMetadata = useCallback(() => {
     setDuration(audioRef.current.duration);
-  };
+  }, []);
 
-  const handleSeek = (e) => {
+  const handleSeek = useCallback((e) => {
     const time = e.target.value;
     audioRef.current.currentTime = time;
     setCurrentTime(time);
-  };
+  }, []);
 
-  const handleVolumeChange = (e) => {
+  const handleVolumeChange = useCallback((e) => {
     const vol = e.target.value;
     audioRef.current.volume = vol;
     setVolume(vol);
-  };
+  }, []);
 
   const formatTime = (time) => {
     if (isNaN(time)) return "0:00";
@@ -58,8 +60,6 @@ const Player = () => {
   };
 
   if (!song) return null;
-  console.log(song);
-
 
   return (
     <div className="player-container">
@@ -67,7 +67,7 @@ const Player = () => {
         ref={audioRef}
         onTimeUpdate={handleTimeUpdate}
         onEnded={() => setIsPlaying(false)}
-        onLoadedMetadata={handleTimeUpdate}
+        onLoadedMetadata={handleLoadedMetadata}
       />
 
       <div className="song-info">

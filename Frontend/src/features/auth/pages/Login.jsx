@@ -4,27 +4,28 @@ import { useAuth } from "../hooks/useAuth";
 import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const { user, loading, handleLogin } = useAuth();
+  const { handleLogin } = useAuth();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   const navigate = useNavigate();
 
   const submitHandler = async (e) => {
     e.preventDefault();
-
+    setError("");
     try {
-      await handleLogin({username, password});
+      setSubmitting(true);
+      await handleLogin({ username, password });
       navigate("/mood-sync");
     } catch (err) {
-      console.error("Login failed");
+      setError("Invalid username or password");
+    } finally {
+      setSubmitting(false);
     }
   };
-
-  if (loading) {
-    return <h1>Loading...</h1>;
-  }
 
   return (
     <div className="form-page-container">
@@ -36,7 +37,7 @@ const Login = () => {
             <input
               onInput={(e) => setUsername(e.target.value)}
               name="username"
-              type="username"
+              type="text"
               required
               className="form-input"
               placeholder="Username"
@@ -53,8 +54,9 @@ const Login = () => {
               placeholder="Password"
             />
           </div>
-          <button type="submit" className="form-button">
-            Sign In
+          {error && <p className="form-error">{error}</p>}
+          <button type="submit" className="form-button" disabled={submitting}>
+            {submitting ? "Signing in..." : "Sign In"}
           </button>
         </form>
         <div className="form-footer">

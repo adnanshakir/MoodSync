@@ -3,6 +3,19 @@ import { FaceLandmarker, FilesetResolver } from "@mediapipe/tasks-vision";
 let lastExpression = "Neutral";
 
 export const init = async ({ videoRef, landmarkerRef, streamRef }) => {
+  // 1. Start camera stream immediately so user sees feed ASAP
+  streamRef.current = await navigator.mediaDevices.getUserMedia({
+    video: true,
+  });
+
+  if (!videoRef.current) return;
+
+  videoRef.current.srcObject = streamRef.current;
+  videoRef.current.onloadedmetadata = () => {
+    videoRef.current.play();
+  };
+
+  // 2. Load the model in background after stream is already showing
   const vision = await FilesetResolver.forVisionTasks(
     "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm"
   );
@@ -16,19 +29,6 @@ export const init = async ({ videoRef, landmarkerRef, streamRef }) => {
     runningMode: "VIDEO",
     numFaces: 1,
   });
-
-  streamRef.current = await navigator.mediaDevices.getUserMedia({
-    video: true,
-  });
-
-  // FIX: check ref before using it
-  if (!videoRef.current) return;
-
-  videoRef.current.srcObject = streamRef.current;
-
-  videoRef.current.onloadedmetadata = () => {
-    videoRef.current.play();
-  };
 };
 
 export const detect = ({ videoRef, landmarkerRef, setExpression }) => {

@@ -1,10 +1,12 @@
 .home-nav {
   grid-column: 1 / -1;
   padding: 0.75rem 2rem;
+  margin-bottom: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid var(--border-subtle);
+  animation: fadeUp 0.45s ease both;
 }
 
 .home-nav .btn-primary{
@@ -31,6 +33,14 @@
   justify-content: space-between;
   gap: 20px;
   overflow: hidden;
+  animation: fadeUp 0.55s ease both;
+  animation-delay: 0.1s;
+}
+
+/* Player sits below camera, fades up slightly after */
+.center-stage > *:last-child {
+  animation: fadeUp 0.55s ease both;
+  animation-delay: 0.2s;
 }
 
 .camera-container {
@@ -42,6 +52,9 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  animation: fadeUp 0.55s ease both;
+  animation-delay: 0.1s;
+  position: relative;
 }
 
 /* --- Right Column: Playlist Panel --- */
@@ -54,6 +67,8 @@
   flex-direction: column;
   max-height: 100%;
   overflow: hidden;
+  animation: slideInRight 0.55s ease both;
+  animation-delay: 0.15s;
 }
 
 .panel-title {
@@ -79,6 +94,7 @@
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.2s ease;
+  animation: fadeUp 0.35s ease both;
 }
 
 .playlist-card:hover {
@@ -157,6 +173,29 @@
   pointer-events: none;
 }
 
+/* --- Entrance Animations --- */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 /* --- Responsive Adaptations --- */
 @media (max-width: 768px) {
   .home-nav h1{
@@ -192,6 +231,8 @@
     min-height: 0;
     display: flex;
     flex-direction: column;
+    animation: fadeUp 0.5s ease both;
+    animation-delay: 0.2s;
   }
 
   .song-scroll-area {
